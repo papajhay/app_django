@@ -1,0 +1,22 @@
+{% load i18n static %}
+
+<div class="border-b border-base-200 mb-8 pb-6 dark:border-base-800">
+    <div class="flex items-center gap-3">
+       
+        <!--  Titre + sous-titre -->
+        <h1 class="font-semibold">
+            {% if subtitle %}
+                <span class="block text-font-important-light dark:text-font-important-dark">
+                    {{ subtitle }}
+                </span>
+            {% endif %}
+
+            <span class="block font-semibold text-primary-600 tracking-tight text-xl dark:text-primary-500">
+                {{ title }}
+            </span>
+        </h1>
+       
+        <!--  Ton logo -->
+        <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="ml-20 w-16 h-16 rounded-full">
+    </div>
+</div>

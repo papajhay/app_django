@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Modifier un produit{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <h2 class="mb-4 text-warning text-center"><i class="bi bi-pencil-square"></i> Modifier un produit</h2>
+        <form method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label">Nom</label>
+            <input type="text" name="name" value="{{ product.name }}" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Prix</label>
+            <input type="number" name="price" step="0.01" value="{{ product.price }}" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="description" class="form-control">{{ product.description }}</textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Image actuelle</label>
+            {% if product.image and product.image.file %}
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-thumbnail mb-2" style="max-width: 200px; height: auto;">
+            {% else %}
+              <p class="text-muted">Aucune image</p>
+            {% endif %}
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Nouvelle image (optionnel)</label>
+            <input type="file" name="image" class="form-control" accept="image/*">
+          </div>
+          <div class="d-flex justify-content-center gap-2">
+            <button type="submit" class="btn btn-warning"><i class="bi bi-save"></i> Enregistrer</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Annuler</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+
+<!-- Section Accueil -->
+<section id="home" class="hero-section text-center text-white d-flex align-items-center">
+  <div class="container">
+    <h1 class="display-4 fw-bold">Bienvenue sur Sport Store</h1>
+    <p class="lead">Votre boutique de sport préférée.</p>
+  </div>
+</section>
+
+<!-- Section À propos -->
+<section id="about" class="about-section" style="min-height: 100vh;">
+  <div class="container-fluid h-100">
+    <div class="row align-items-stretch h-100">
+      
+      <!-- Colonne texte à gauche -->
+      <div class="col-md-6 bg-dark text-white p-5 d-flex flex-column justify-content-center">
+        <h1 class="display-4 fw-bold mb-4 about-title">À propos</h1>
+        <h2 class="h3 fw-semibold mb-3">"La victoire commence dans l'esprit"</h2>
+        <p class="lead mb-0">
+          Paragraphe. Vous pouvez le modifier et ajouter votre propre texte. Cliquez sur 
+          « Modifier le texte » ou double-cliquez ici pour ajouter votre contenu et 
+          personnaliser la police. C'est l'espace idéal pour raconter une histoire et 
+          vous présenter à vos visiteurs.
+        </p>
+      </div>
+
+      <!-- Colonne image à droite -->
+      <div class="col-md-6 p-0">
+        <img src="{% static 'images/about3.jpeg' %}" 
+             alt="Équipe de rénovation" 
+             class="img-fluid w-100 h-100" 
+             style="object-fit: cover;">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="products" class="py-5 bg-light">
+  <div class="container-fluid">
+    <h2 class="display-4 fw-bold mb-5 about-title text-center">Nos produits</h2>
+    <div class="row">
+      {% for product in page_obj %}
+      <div class="col-md-3 mb-4">
+        <a href="{% url 'product_detail' product.id %}" class="text-decoration-none">
+          <div class="card h-100 shadow-sm">
+            {% if product.image %}
+              <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+              <img src="https://via.placeholder.com/300x200?text=Pas+d%27image" class="card-img-top" alt="Pas d'image" style="height: 200px; object-fit: cover;">
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title mb-2">
+                {{ product.name }}
+              </h5>
+              <p class="card-text mb-2"> {{ product.get_description_by_language|striptags|truncatewords:20 }}</p>
+              <p class="card-text"><strong>{{ product.price }} €</strong></p>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% empty %}
+      <div class="col-12">
+        <p class="text-center text-muted">Aucun produit disponible.</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if page_obj.has_other_pages %}
+    <nav aria-label="Pagination produits" class="d-flex justify-content-center mt-4">
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Précédent</a>
+          </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+          {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivant</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %}
+  </div>
+</section>
+
+<!-- Section Contact -->
+<section id="contact" class="py-5 bg-white">
+  <div class="container">
+    <h2 class="text-center mb-4">Contactez-nous</h2>
+    <p class="text-center mb-5 text-muted">
+      Vous avez une question ou une demande particulière ? Remplissez le formulaire ci-dessous et nous vous répondrons rapidement.
+    </p>
+    <div class="row">
+      <!-- Texte descriptif à gauche -->
+      <div class="col-md-6 d-flex flex-column justify-content-center align-items-start mb-4">
+        <!-- Texte descriptif -->
+        <h3 class="mb-3">Parlons ensemble de votre prochain projet</h3>
+        <p class="mb-2">Contactez-nous pour prévoir une consultation gratuite chez vous.</p>
+        <p class="mb-2"><strong>Zones d’intervention :</strong> étage MIzara Sport, enceinte Sport Mada</p>
+        <hr class="w-100">
+        <!-- Coordonnées avec icônes -->
+        <div class="d-flex align-items-center mb-2">
+          <i class="bi bi-geo-alt-fill me-2 fs-5 text-danger"></i>
+          <span>47 Boulevard 75020 TANA</span>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+          <i class="bi bi-envelope-fill me-2 fs-5 text-primary"></i>
+          <span>info@sportrenovation.fr</span>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+          <i class="bi bi-telephone-fill me-2 fs-5 text-success"></i>
+          <span>00 00 00 00 00</span>
+        </div>
+      </div>
+      
+      <!-- Formulaire de contact à droite -->
+      <div class="col-md-6 mb-4">
+        <form method="post" action="" class="contact-form">
+          {% csrf_token %}
+          
+          <!-- Prénom et Nom côte à côte -->
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label">Prénom <span class="text-danger">*</span></label>
+              <input type="text" name="first_name" class="form-control underline-input" required>
+            </div>
+            <div class="col-6">
+              <label class="form-label">Nom <span class="text-danger">*</span></label>
+              <input type="text" name="last_name" class="form-control underline-input" required>
+            </div>
+          </div>
+          
+          <!-- Email et Téléphone côte à côte -->
+          <div class="row mb-3">
+            <div class="col-6">
+              <label class="form-label">E-mail <span class="text-danger">*</span></label>
+              <input type="email" name="email" class="form-control underline-input" required>
+            </div>
+            <div class="col-6">
+              <label class="form-label">Téléphone</label>
+              <input type="tel" name="phone" class="form-control underline-input" required>
+            </div>
+          </div>
+          
+          <!-- Adresse -->
+          <div class="mb-3">
+            <label class="form-label">Adresse</label>
+            <input type="text" name="address" class="form-control underline-input" required>
+          </div>
+          
+          <!-- Objet -->
+          <div class="mb-3">
+            <label class="form-label">Objet</label>
+            <input type="text" name="subject" class="form-control underline-input" required>
+          </div>
+          
+          <!-- Message -->
+          <div class="mb-3">
+            <label class="form-label">Message</label>
+            <textarea name="message" class="form-control underline-textarea" rows="4" placeholder="Rédigez votre message ici..." required></textarea>
+          </div>
+          
+          <button type="submit" class="btn btn-dark w-100 contact-btn">Envoyer</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
