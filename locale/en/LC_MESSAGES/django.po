@@ -60,10 +60,6 @@ msgstr "Dashboard"
 msgid "Utilisateurs"
 msgstr "Users"
 
-msgid "Tableau de bord"
-msgstr "Dashboard"
-
-
 #: .\crud\settings.py:162
 msgid "Français"
 msgstr "Français"

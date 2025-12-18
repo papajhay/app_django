@@ -4,8 +4,8 @@ from django.utils.translation import gettext_lazy as _
 
 UNFOLD = {
     "SITE_TITLE": "SPORT STORE Admin",
-    "SITE_HEADER": "Administration SPORT STORE",
-    "SITE_SUBHEADER": "Gestion des produits",
+    "SITE_HEADER": _("Administration SPORT STORE"),
+    "SITE_SUBHEADER": _("Gestion des produits"),
     "SHOW_ACTIONS": True, 
     "SITE_URL": "/",
     "SHOW_LANGUAGES": True,

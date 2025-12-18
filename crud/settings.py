@@ -29,8 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-INSTALLED_APPS = [
-    'modeltranslation',                # 1. Toujours avant django.contrib.admin pour l'admin integration
+INSTALLED_APPS = [               # 1. Toujours avant django.contrib.admin pour l'admin integration
     'unfold',                          # 2. Après modeltranslation, mais avant admin
     'unfold.contrib.import_export',    # 3. Décommente et place ici (obligatoire pour toolbar + import/export)
     'django.contrib.admin',            # 4. Après unfold et modeltranslation
@@ -39,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'modeltranslation', 
 
     'debug_toolbar',
     'rest_framework',
@@ -48,7 +49,7 @@ INSTALLED_APPS = [
     "ckeditor",
     "ckeditor_uploader",
 
-    'import_export',                  
+    #'import_export',                  
 
     'app',
     'app.products',
@@ -105,6 +106,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -220,4 +222,4 @@ dt_settings.PANELS_DEFAULTS = DEBUG_TOOLBAR_PANELS
 DEBUG_TOOLBAR_CONFIG = DEBUG_TOOLBAR_CONFIG
 
 # Sécurité
-INTERNAL_IPS = ["127.0.0.1", "::1"]
+#INTERNAL_IPS = ["127.0.0.1", "::1"]

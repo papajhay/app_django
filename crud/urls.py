@@ -37,5 +37,10 @@ urlpatterns = [
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ] + debug_toolbar_urls()
 
+# === URLs traduites (admin et éventuellement ton site principal) ===
+urlpatterns += i18n_patterns(
+    path('admin/', admin.site.urls),
+)
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
