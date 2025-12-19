@@ -29,10 +29,10 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-INSTALLED_APPS = [               # 1. Toujours avant django.contrib.admin pour l'admin integration
-    'unfold',                          # 2. Après modeltranslation, mais avant admin
-    'unfold.contrib.import_export',    # 3. Décommente et place ici (obligatoire pour toolbar + import/export)
-    'django.contrib.admin',            # 4. Après unfold et modeltranslation
+INSTALLED_APPS = [               
+    'unfold',                         
+    'unfold.contrib.import_export',    
+    'django.contrib.admin',             
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -49,37 +49,11 @@ INSTALLED_APPS = [               # 1. Toujours avant django.contrib.admin pour l
     "ckeditor",
     "ckeditor_uploader",
 
-    #'import_export',                  
+    'import_export',                  
 
     'app',
     'app.products',
 ]
-
-#INSTALLED_APPS = [
-#    'unfold',
-#    'unfold.contrib.import_export', # ← Indispensable pour voir les boutons Import/Export avec Unfold
-#    'django.contrib.admin',
-#    'django.contrib.auth',
-#    'django.contrib.contenttypes',
-#    'django.contrib.sessions',
-#    'django.contrib.messages',
-#    'django.contrib.staticfiles',
-    
-    
-#    'modeltranslation',
-#    'debug_toolbar',
-#    'rest_framework',
-#    'rest_framework_simplejwt',
-#    'drf_spectacular',
-#    'drf_spectacular_sidecar',
-#    'ckeditor',
-#    'ckeditor_uploader',
-    
-#    'import_export',
-    
-#    'app',
-#    'app.products',
-#  ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -222,4 +196,4 @@ dt_settings.PANELS_DEFAULTS = DEBUG_TOOLBAR_PANELS
 DEBUG_TOOLBAR_CONFIG = DEBUG_TOOLBAR_CONFIG
 
 # Sécurité
-#INTERNAL_IPS = ["127.0.0.1", "::1"]
+INTERNAL_IPS = ["127.0.0.1", "::1"]

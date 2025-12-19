@@ -1,14 +1,4 @@
 from rest_framework import viewsets
-#from rest_framework.permissions import IsAuthenticated
-#from rest_framework.parsers import MultiPartParser, FormParser
-#from .models import Product
-#from .serializers import ProductSerializer
-
-#class ProductViewSet(viewsets.ModelViewSet):
-#    queryset = Product.objects.all()
-#    serializer_class = ProductSerializer
-#    permission_classes = [IsAuthenticated]  # API sécurisée par JWT
-#    parser_classes = [MultiPartParser, FormParser]
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from app.products.models import Product 

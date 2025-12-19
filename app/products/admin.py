@@ -20,68 +20,67 @@ from . import translation
 logger = logging.getLogger("app.products")
 
 
-#class ProductResource(resources.ModelResource):
-#    description_de = Field(attribute='description_de', column_name='description_de')
-#    description_en = Field(attribute='description_en', column_name='description_en')
-#    description_fr = Field(attribute='description_fr', column_name='description_fr')
+class ProductResource(resources.ModelResource):
+    description_de = Field(attribute='description_de', column_name='description_de')
+    description_en = Field(attribute='description_en', column_name='description_en')
+    description_fr = Field(attribute='description_fr', column_name='description_fr')
     
-#    class Meta:
-#        model = Product
-#        fields = (
-#            'name',
-#            'description_de',
-#            'description_en',
-#            'description_fr',
-#            'price',
-#            'image',
-#        )
-#        import_id_fields = ['name']
-#        export_order = fields
-#        skip_unchanged = True
-#        report_skipped = False
+    class Meta:
+        model = Product
+        fields = (
+            'name',
+            'description_de',
+            'description_en',
+            'description_fr',
+            'price',
+            'image',
+        )
+        import_id_fields = ['name']
+        export_order = fields
+        skip_unchanged = True
+        report_skipped = False
 
-#    #  Filtrer les produits AVANT export
-#    def get_queryset(self):
-#        return Product.objects.filter(
-#            price__gt=0,
-#            image__isnull=False,
-#        ).exclude(
-#            name__isnull=True
-#        ).exclude(
-#            name=""
-#        )
+    #  Filtrer les produits AVANT export
+    def get_queryset(self):
+        return Product.objects.filter(
+            price__gt=0,
+            image__isnull=False,
+        ).exclude(
+            name__isnull=True
+        ).exclude(
+            name=""
+        )
 
-#    #  Nettoyage texte (HTML + entités)
-#    def clean_text(self, value):
-#        if not value:
-#            return ""
-#        value = unescape(value)           # &eacute; → é
-#        value = strip_tags(value)         # supprime HTML
-#        return " ".join(value.split())    # supprime \n, &nbsp;, espaces multiples
+    #  Nettoyage texte (HTML + entités)
+    def clean_text(self, value):
+        if not value:
+            return ""
+        value = unescape(value)           # &eacute; → é
+        value = strip_tags(value)         # supprime HTML
+        return " ".join(value.split())    # supprime \n, &nbsp;, espaces multiples
 
-#    def dehydrate_description_de(self, obj):
-#        return self.clean_text(obj.description_de)
+    def dehydrate_description_de(self, obj):
+        return self.clean_text(obj.description_de)
 
-#    def dehydrate_description_en(self, obj):
-#        return self.clean_text(obj.description_en)
+    def dehydrate_description_en(self, obj):
+        return self.clean_text(obj.description_en)
 
-#    def dehydrate_description_fr(self, obj):
-#        return self.clean_text(obj.description_fr)
+    def dehydrate_description_fr(self, obj):
+        return self.clean_text(obj.description_fr)
 
-#    def dehydrate_image(self, obj):
-#        return obj.image.name if obj.image else ""
+    def dehydrate_image(self, obj):
+        return obj.image.name if obj.image else ""
         
 class BaseProductAdmin(
-    #ImportExportModelAdmin,
+    ImportExportModelAdmin,
     ModelAdmin,  
     TabbedTranslationAdmin,
 ):
-    translation_fallback_language = 'en'
     pass
 
 @admin.register(Product)
 class ProductAdmin(BaseProductAdmin):
-    #sresource_class = ProductResource
+    resource_class = ProductResource
     
     list_display = ( 'name', 'short_description', 'price', 'image_preview', 'created_at')
     list_display_links = ('name',)
