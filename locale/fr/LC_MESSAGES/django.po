@@ -132,6 +132,7 @@ msgstr "Mentions légales"
 msgid "par"
 msgstr "par"
 
+
 #: templates/layout/footer.html:23
 msgid "Créé avec"
 msgstr "Créé avec"
@@ -151,6 +152,9 @@ msgstr "À propos"
 #: templates/layout/header.html:18
 msgid "Nos Produits"
 msgstr "Nos Produits"
+
+msgid "Nos produits"
+msgstr "Nos produits"
 
 #: templates/layout/header.html:19
 msgid "Contact"
