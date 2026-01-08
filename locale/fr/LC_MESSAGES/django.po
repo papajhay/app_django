@@ -152,6 +152,9 @@ msgstr "À propos"
 msgid "Nos Produits"
 msgstr "Nos Produits"
 
+msgid "Nos produits"
+msgstr "Nos produits"
+
 #: templates/layout/header.html:19
 msgid "Contact"
 msgstr "Contact"
