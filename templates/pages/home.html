@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static i18n %}
 
-{% block title %}Accueil{% endblock %}
+{% block title %}{% trans "Accueil" %}{% endblock %}
 
 {% block content %}
 
 <!-- Section Accueil -->
 <section id="home" class="hero-section text-center text-white d-flex align-items-center">
   <div class="container">
-    <h1 class="display-4 fw-bold">Bienvenue sur Sport Store</h1>
-    <p class="lead">Votre boutique de sport préférée.</p>
+    <h1 class="display-4 fw-bold">{% trans "Bienvenue sur Sport Store" %}</h1>
+    <p class="lead">{% trans "Votre boutique de sport préférée." %}</p>
   </div>
 </section>
 
@@ -20,13 +20,15 @@
       
       <!-- Colonne texte à gauche -->
       <div class="col-md-6 bg-dark text-white p-5 d-flex flex-column justify-content-center">
-        <h1 class="display-4 fw-bold mb-4 about-title">À propos</h1>
-        <h2 class="h3 fw-semibold mb-3">"La victoire commence dans l'esprit"</h2>
+        <h1 class="display-4 fw-bold mb-4 about-title">{% trans "À propos" %}</h1>
+        <h2 class="h3 fw-semibold mb-3">{% trans "La victoire commence dans l'esprit" %}</h2>
         <p class="lead mb-0">
+          {% blocktrans %}
           Paragraphe. Vous pouvez le modifier et ajouter votre propre texte. Cliquez sur 
           « Modifier le texte » ou double-cliquez ici pour ajouter votre contenu et 
           personnaliser la police. C'est l'espace idéal pour raconter une histoire et 
           vous présenter à vos visiteurs.
+          {% endblocktrans %}
         </p>
       </div>
 
@@ -44,7 +46,7 @@
 
 <section id="products" class="py-5 bg-light">
   <div class="container-fluid">
-    <h2 class="display-4 fw-bold mb-5 about-title text-center">Nos produits</h2>
+    <h2 class="display-4 fw-bold mb-5 about-title text-center">{% trans "Nos produits" %}</h2>
     <div class="row">
       {% for product in page_obj %}
       <div class="col-md-3 mb-4">
@@ -59,7 +61,7 @@
               <h5 class="card-title mb-2">
                 {{ product.name }}
               </h5>
-              <p class="card-text mb-2"> {{ product.get_description_by_language|striptags|truncatewords:20 }}</p>
+              <p class="card-text mb-2"> {{ product.description|striptags|truncatewords:20 }}</p>
               <p class="card-text"><strong>{{ product.price }} €</strong></p>
             </div>
           </div>
@@ -67,7 +69,7 @@
       </div>
       {% empty %}
       <div class="col-12">
-        <p class="text-center text-muted">Aucun produit disponible.</p>
+        <p class="text-center text-muted">{% trans "Aucun produit disponible." %}</p>
       </div>
       {% endfor %}
     </div>
@@ -78,7 +80,7 @@
       <ul class="pagination">
         {% if page_obj.has_previous %}
           <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Précédent</a>
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans "Précédent" %}</a>
           </li>
         {% endif %}
 
@@ -92,7 +94,7 @@
 
         {% if page_obj.has_next %}
           <li class="page-item">
-            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Suivant</a>
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans "Suivant" %}</a>
           </li>
         {% endif %}
       </ul>
@@ -104,17 +106,21 @@
 <!-- Section Contact -->
 <section id="contact" class="py-5 bg-white">
   <div class="container">
-    <h2 class="text-center mb-4">Contactez-nous</h2>
+    <h2 class="text-center mb-4">{% trans  "Contactez-nous" %}</h2>
     <p class="text-center mb-5 text-muted">
-      Vous avez une question ou une demande particulière ? Remplissez le formulaire ci-dessous et nous vous répondrons rapidement.
+      {% trans "Vous avez une question ou une demande particulière ? Remplissez le formulaire ci-dessous et nous vous répondrons rapidement." %}
     </p>
     <div class="row">
       <!-- Texte descriptif à gauche -->
       <div class="col-md-6 d-flex flex-column justify-content-center align-items-start mb-4">
         <!-- Texte descriptif -->
-        <h3 class="mb-3">Parlons ensemble de votre prochain projet</h3>
-        <p class="mb-2">Contactez-nous pour prévoir une consultation gratuite chez vous.</p>
-        <p class="mb-2"><strong>Zones d’intervention :</strong> étage MIzara Sport, enceinte Sport Mada</p>
+        <h3 class="mb-3">{% trans "Parlons ensemble de votre prochain projet" %}</h3>
+        <p class="mb-2">{% trans "Contactez-nous pour prévoir une consultation gratuite chez vous." %}</p>
+        <p class="mb-2">
+          {% blocktrans trimmed %}
+          <strong>Zones d’intervention :</strong> étage MIzara Sport, enceinte Sport Mada
+          {% endblocktrans %}
+        </p>
         <hr class="w-100">
         <!-- Coordonnées avec icônes -->
         <div class="d-flex align-items-center mb-2">
@@ -139,11 +145,11 @@
           <!-- Prénom et Nom côte à côte -->
           <div class="row mb-3">
             <div class="col-6">
-              <label class="form-label">Prénom <span class="text-danger">*</span></label>
+              <label class="form-label">{% trans "Prénom" %}<span class="text-danger">*</span></label>
               <input type="text" name="first_name" class="form-control underline-input" required>
             </div>
             <div class="col-6">
-              <label class="form-label">Nom <span class="text-danger">*</span></label>
+              <label class="form-label">{% trans "Nom" %}<span class="text-danger">*</span></label>
               <input type="text" name="last_name" class="form-control underline-input" required>
             </div>
           </div>
@@ -151,34 +157,34 @@
           <!-- Email et Téléphone côte à côte -->
           <div class="row mb-3">
             <div class="col-6">
-              <label class="form-label">E-mail <span class="text-danger">*</span></label>
+              <label class="form-label">{% trans "E-mail" %}<span class="text-danger">*</span></label>
               <input type="email" name="email" class="form-control underline-input" required>
             </div>
             <div class="col-6">
-              <label class="form-label">Téléphone</label>
+              <label class="form-label">{% trans "Téléphone" %}</label>
               <input type="tel" name="phone" class="form-control underline-input" required>
             </div>
           </div>
           
           <!-- Adresse -->
           <div class="mb-3">
-            <label class="form-label">Adresse</label>
+            <label class="form-label">{% trans "Adresse" %}Adresse</label>
             <input type="text" name="address" class="form-control underline-input" required>
           </div>
           
           <!-- Objet -->
           <div class="mb-3">
-            <label class="form-label">Objet</label>
+            <label class="form-label">{% trans "Objet" %}</label>
             <input type="text" name="subject" class="form-control underline-input" required>
           </div>
           
           <!-- Message -->
           <div class="mb-3">
-            <label class="form-label">Message</label>
-            <textarea name="message" class="form-control underline-textarea" rows="4" placeholder="Rédigez votre message ici..." required></textarea>
+            <label class="form-label">{% trans "Message" %}</label>
+            <textarea name="message" class="form-control underline-textarea" rows="4" placeholder="{% trans 'Rédigez votre message ici...'  %}" required></textarea>
           </div>
           
-          <button type="submit" class="btn btn-dark w-100 contact-btn">Envoyer</button>
+          <button type="submit" class="btn btn-dark w-100 contact-btn">{% trans "Envoyer" %}</button>
         </form>
       </div>
     </div>
