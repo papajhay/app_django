@@ -1,4 +1,4 @@
-{% load static %}
+{% load static i18n %}
 
 <footer class="custom-footer py-5 mt-auto bg-dark">
   <div class="container text-center">
@@ -13,14 +13,14 @@
 
     <!-- Liens -->
     <div class="footer-links mb-3">
-      <a href="#" class="footer-link">Politique de cookies</a>
-      <a href="#" class="footer-link">Politique de confidentialité</a>
-      <a href="#" class="footer-link">Mentions légales</a>
+      <a href="#" class="footer-link">{% trans "Politique de cookies" %}</a>
+      <a href="#" class="footer-link">{% trans "Politique de confidentialité" %}</a>
+      <a href="#" class="footer-link">{% trans "Mentions légales" %}</a>
     </div>
 
     <!-- Texte -->
     <p class="footer-text mb-3">
-      © 2025 par <strong>SPORT& Rénovation</strong>. Créé avec <a href="#" target="_blank" class="footer-link">Papajhay.com</a>
+      © 2025 {% trans "par" %} <strong>SPORT & Rénovation</strong>. {% trans "Créé avec" %} <a href="#" target="_blank" class="footer-link">Papajhay.com</a>
     </p>
 
     <!-- Réseaux sociaux -->

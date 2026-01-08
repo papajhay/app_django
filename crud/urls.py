@@ -12,18 +12,10 @@ from django.conf.urls.i18n import i18n_patterns
 from debug_toolbar.toolbar import debug_toolbar_urls
 
 urlpatterns = [
-    
-    # App principale (HTML)
-    path('', include('app.urls')),
-    path('admin/', admin.site.urls),
+    # formulaire setlang
+    path('i18n/', include('django.conf.urls.i18n')),  
     
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    
-    # URL pour changer la langue via le formulaire
-    path('i18n/', include('django.conf.urls.i18n')),
-    
-     # Authentification DRF (login/logout)
-    #path('api-auth/', include('rest_framework.urls')),
     
     #  Documentation Swagger
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
@@ -37,9 +29,10 @@ urlpatterns = [
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
 ] + debug_toolbar_urls()
 
-# === URLs traduites (admin et éventuellement ton site principal) ===
+# ===  TOUT LE SITE PUBLIC ET ADMIN EN MULTILINGUE ===
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
+    path('', include('app.urls')), 
 )
 
 if settings.DEBUG:
